@@ -5,6 +5,13 @@ Todas as mudanças notáveis neste projeto serão documentadas neste arquivo.
 O formato é baseado em [Keep a Changelog](https://keepachangelog.com/pt-BR/) 
 e este projeto segue [Semantic Versioning](https://semver.org/lang/pt-BR/).
 
+## [1.0.11] - 2026-03-18
+
+### Corrigido
+- Atualizar package-lock.json e CHANGELOG com formato detalhado
+
+---
+
 ## [1.0.10] - 2026-03-18
 
 ### Alterado
