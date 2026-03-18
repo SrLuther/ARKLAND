@@ -7,8 +7,8 @@ e este projeto segue [Semantic Versioning](https://semver.org/lang/pt-BR/).
 
 ## [1.0.10] - 2026-03-18
 
-### Corrigido
-- Corrigir CHANGELOG com formato detalhado
+### Alterado
+- arquivo: `CHANGELOG.md` - Corrigido: Atualizado com detalhes de arquivos em v1.0.9 e v1.0.10
 
 ---
 
