@@ -5,6 +5,19 @@ Todas as mudanças notáveis neste projeto serão documentadas neste arquivo.
 O formato é baseado em [Keep a Changelog](https://keepachangelog.com/pt-BR/) 
 e este projeto segue [Semantic Versioning](https://semver.org/lang/pt-BR/).
 
+## [1.0.12] - 2026-03-18
+
+### Adicionado
+- arquivo: `package-lock.json` - Arquivo de lock npm na raiz para cache do GitHub Actions
+
+### Alterado
+- arquivo: `.github/workflows/quality-check.yml` - Atualizado: actions/checkout@v3 → v4 e actions/setup-node@v3 → v4
+- arquivo: `.github/workflows/frontend.yml` - Atualizado: actions/checkout@v3 → v4
+- arquivo: `.github/workflows/security.yml` - Atualizado: actions/checkout e setup-node para @v4
+- arquivo: `.github/workflows/docs.yml` - Atualizado: actions/checkout@v3 → v4
+
+---
+
 ## [1.0.11] - 2026-03-18
 
 ### Adicionado
