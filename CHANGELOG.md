@@ -5,6 +5,18 @@ Todas as mudanças notáveis neste projeto serão documentadas neste arquivo.
 O formato é baseado em [Keep a Changelog](https://keepachangelog.com/pt-BR/) 
 e este projeto segue [Semantic Versioning](https://semver.org/lang/pt-BR/).
 
+## [1.0.8] - 2026-03-18
+
+### Adicionado
+- arquivo: `CHANGELOG_FORMAT.md` - Documentação: Guia completo do formato obrigatório para CHANGELOG
+- arquivo: `.git/hooks/pre-push` - Hook: Validação rigorosa verificando se CHANGELOG menciona arquivos alterados
+
+### Alterado
+- arquivo: `.git/hooks/pre-push` - Melhorado: Adicionada função validateChangelog() com verificação de referência a arquivos
+- arquivo: `release.js` - Documentação atualizada nos comentários
+
+---
+
 ## [1.0.7] - 2026-03-18
 
 ### Corrigido
