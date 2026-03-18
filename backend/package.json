@@ -1,6 +1,6 @@
 {
   "name": "arkland-store",
-  "version": "1.0.10",
+  "version": "1.0.11",
   "description": "Portal de vitrine para venda de pacotes ARKLAND via Tip4Serv",
   "type": "module",
   "main": "src/server.js",

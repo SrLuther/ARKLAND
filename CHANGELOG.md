@@ -5,6 +5,16 @@ Todas as mudanças notáveis neste projeto serão documentadas neste arquivo.
 O formato é baseado em [Keep a Changelog](https://keepachangelog.com/pt-BR/) 
 e este projeto segue [Semantic Versioning](https://semver.org/lang/pt-BR/).
 
+## [1.0.11] - 2026-03-18
+
+### Adicionado
+- arquivo: `backend/package-lock.json` - Arquivo de lock npm para cache do GitHub Actions
+
+### Alterado
+- arquivo: `.gitignore` - Removida restrição de package-lock.json
+
+---
+
 ## [1.0.10] - 2026-03-18
 
 ### Alterado
