@@ -1,0 +1,45 @@
+# Dependências
+node_modules/
+package-lock.json
+yarn.lock
+
+# Variáveis de ambiente
+.env
+.env.local
+.env.*.local
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.VSCodeCounter/
+
+# Build
+dist/
+build/
+.next/
+out/
+
+# Cache
+.cache/
+.eslintcache
+
+# OS temporários
+tmp/
+temp/
+
+# Sistema
+.env.local
+.env.production.local

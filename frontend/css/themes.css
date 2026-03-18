@@ -1,0 +1,31 @@
+/* Arquivo para temas adicionais futuros */
+
+/* ========================================
+   DARK STONE THEME (Alternativa)
+   ======================================== */
+
+.dark-stone-theme {
+  --color-earth: #3a3530;
+  --color-stone: #5a5550;
+  --color-wood: #4a3a2a;
+  --color-sand: #9a8a70;
+  --color-danger: #b84530;
+  --color-accent: #7a7270;
+  --color-light: #c0b8b0;
+  --color-white: #d0c8c0;
+}
+
+/* ========================================
+   LAVA THEME (Futuro)
+   ======================================== */
+
+.lava-theme {
+  --color-earth: #4a2a1a;
+  --color-stone: #6a4a3a;
+  --color-wood: #3a2a1a;
+  --color-sand: #c09070;
+  --color-danger: #c85030;
+  --color-accent: #a06040;
+  --color-light: #d0a080;
+  --color-white: #e0b090;
+}
