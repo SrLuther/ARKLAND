@@ -8,6 +8,8 @@
     "start": "node src/server.js",
     "dev": "node --watch src/server.js",
     "test": "node test-api.js",
+    "test:local": "node ../test-local.js",
+    "test:local:quick": "node ../test-local.js quality frontend security",
     "setup-hooks": "node scripts/setup-hooks.js",
     "release": "node ../release.js"
   },
