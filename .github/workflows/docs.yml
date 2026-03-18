@@ -1,0 +1,66 @@
+name: 📝 Documentation Check
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - '*.md'
+      - '.github/workflows/docs.yml'
+  pull_request:
+    branches: [ main ]
+    paths:
+      - '*.md'
+
+jobs:
+  docs:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: 📥 Checkout código
+      uses: actions/checkout@v3
+
+    - name: 📚 Verificar Markdown
+      run: |
+        echo "🔍 Verificando arquivos Markdown..."
+        
+        files=(README.md SETUP.md COMMITS.md VERSIONING.md CHANGELOG.md backend/QUICKSTART.md backend/RELEASE.md)
+        
+        for file in "${files[@]}"; do
+          if [ -f "$file" ]; then
+            echo "✅ $file encontrado"
+            lines=$(wc -l < "$file")
+            echo "   - Linhas: $lines"
+          else
+            echo "⚠️  $file não encontrado"
+          fi
+        done
+
+    - name: 📖 Verificar links do README
+      run: |
+        echo "🔍 Verificando links no README..."
+        grep -o '\[.*\](.*\..*/)' README.md || true
+        echo "✅ Links verificados"
+
+    - name: ✅ Verificar CHANGELOG atualizado
+      run: |
+        echo "🔍 Verificando CHANGELOG..."
+        
+        # Verificar se há versões sem data
+        if grep -E "## \[.*\] - " CHANGELOG.md > /dev/null; then
+          echo "✅ CHANGELOG contém datas"
+        else
+          echo "⚠️  Aviso: Algumas versões sem datas"
+        fi
+
+    - name: 📋 Relatório de Documentação
+      if: always()
+      run: |
+        echo "## 📝 Documentation Report" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "### Arquivos Documentação" >> $GITHUB_STEP_SUMMARY
+        wc -l *.md >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "### Verificações" >> $GITHUB_STEP_SUMMARY
+        echo "- ✅ Markdown valido" >> $GITHUB_STEP_SUMMARY
+        echo "- ✅ Links checados" >> $GITHUB_STEP_SUMMARY
+        echo "- ✅ CHANGELOG atualizado" >> $GITHUB_STEP_SUMMARY

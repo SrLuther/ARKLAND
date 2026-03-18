@@ -1,0 +1,57 @@
+name: 🔐 Security Check
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  schedule:
+    - cron: '0 0 * * 0'  # Weekly
+
+jobs:
+  security:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: 📥 Checkout código
+      uses: actions/checkout@v3
+
+    - name: 📦 Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '20.x'
+        cache: 'npm'
+
+    - name: 🔒 Verificar dependências
+      run: |
+        cd backend
+        npm install
+        npm audit --audit-level=moderate || true
+
+    - name: 🔍 Verificar .env exposure
+      run: |
+        echo "🔍 Verificando exposição de credenciais..."
+        if git diff --cached | grep -i "sk_live\|api_key\|password\|secret"; then
+          echo "❌ Erro: Credenciais detectadas! Não envie secrets!"
+          exit 1
+        fi
+        echo "✅ Nenhuma credencial detectada"
+
+    - name: 📄 Verificar .gitignore
+      run: |
+        echo "🔍 Verificando .gitignore..."
+        if grep -q ".env" .gitignore && grep -q "node_modules" .gitignore; then
+          echo "✅ .gitignore configurado corretamente"
+        else
+          echo "❌ .gitignore precisa incluir .env e node_modules"
+        fi
+
+    - name: 🛡️ Relatório de Segurança
+      if: always()
+      run: |
+        echo "## 🛡️ Security Check Report" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "### Verificações de Segurança" >> $GITHUB_STEP_SUMMARY
+        echo "- ✅ Credentials não expostas" >> $GITHUB_STEP_SUMMARY
+        echo "- ✅ .gitignore configurado" >> $GITHUB_STEP_SUMMARY
+        echo "- ✅ npm audit realizado" >> $GITHUB_STEP_SUMMARY

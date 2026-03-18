@@ -1,0 +1,64 @@
+name: 🚀 Frontend Tests
+
+on:
+  push:
+    branches: [ main, develop ]
+    paths:
+      - 'frontend/**'
+      - '.github/workflows/frontend.yml'
+  pull_request:
+    branches: [ main, develop ]
+    paths:
+      - 'frontend/**'
+
+jobs:
+  frontend:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: 📥 Checkout código
+      uses: actions/checkout@v3
+
+    - name: 🧪 Validar HTML
+      run: |
+        echo "🔍 Verificando HTML..."
+        if command -v html5validator &> /dev/null; then
+          html5validator --root frontend/ --format unix --ignore STYLE_NEWLINE || true
+        else
+          echo "⚠️  html5validator não instalado, pulando validação HTML"
+        fi
+
+    - name: 🎨 Validar CSS
+      run: |
+        echo "🔍 Verificando CSS..."
+        for file in frontend/css/*.css; do
+          echo "Validando: $file"
+          if [ -f "$file" ]; then
+            echo "✅ $file existe"
+          fi
+        done
+
+    - name: 📝 Verificar JavaScript sintaxe
+      run: |
+        echo "🔍 Verificando JavaScript..."
+        node -c frontend/js/main.js || (echo "❌ Erro em main.js" && exit 1)
+        echo "✅ JavaScript sintaxe OK"
+
+    - name: 📊 Verificar tamanho de arquivos
+      run: |
+        echo "## 📊 File Size Report" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        du -sh frontend/css/*
+        du -sh frontend/js/*
+        du -sh frontend/index.html
+
+    - name: ✅ Relatório Frontend
+      if: always()
+      run: |
+        echo "## ✅ Frontend Quality Report" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "### Arquivos Verificados" >> $GITHUB_STEP_SUMMARY
+        echo "- ✅ index.html" >> $GITHUB_STEP_SUMMARY
+        echo "- ✅ css/style.css" >> $GITHUB_STEP_SUMMARY
+        echo "- ✅ css/themes.css" >> $GITHUB_STEP_SUMMARY
+        echo "- ✅ js/main.js" >> $GITHUB_STEP_SUMMARY

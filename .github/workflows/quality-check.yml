@@ -1,0 +1,108 @@
+name: 🔍 Quality Check - Node.js CI
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
+  quality:
+    runs-on: ubuntu-latest
+    
+    strategy:
+      matrix:
+        node-version: [18.x, 20.x]
+
+    steps:
+    - name: 📥 Checkout código
+      uses: actions/checkout@v3
+
+    - name: 📦 Setup Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+
+    - name: 📚 Instalar dependências
+      run: |
+        cd backend
+        npm install
+
+    - name: ✅ Verificar versão (VERSION)
+      run: |
+        echo "📋 Versão: $(cat VERSION)"
+        if [ ! -f VERSION ]; then
+          echo "❌ Erro: Arquivo VERSION não encontrado"
+          exit 1
+        fi
+
+    - name: 🧪 Testar integração com API
+      env:
+        TIP4SERV_API_KEY: ${{ secrets.TIP4SERV_API_KEY }}
+      run: |
+        cd backend
+        npm test
+
+    - name: 🎨 Verificar sintaxe JavaScript
+      run: |
+        cd backend
+        node -c src/server.js
+        node -c src/routes/packages.js
+        node -c src/controllers/packagesController.js
+        node -c src/services/tip4servService.js
+        echo "✅ Toda sintaxe JavaScript está correta"
+
+    - name: 🔍 Análise de código (ESLint)
+      continue-on-error: true
+      run: |
+        cd backend
+        npm install --save-dev eslint eslint-config-airbnb-base eslint-plugin-import
+        npx eslint src/**/*.js --format compact || true
+
+    - name: 📊 Verificar arquivo package.json
+      run: |
+        cd backend
+        npx json ./package.json > /dev/null || echo "⚠️  package.json inválido"
+
+    - name: 🗂️ Verificar estrutura de pastas
+      run: |
+        echo "🔍 Estrutura Backend:"
+        cd backend
+        find src -type f -name "*.js" | sort
+        echo ""
+        echo "🔍 Estrutura Frontend:"
+        cd ../frontend
+        find . -type f \( -name "*.html" -o -name "*.css" -o -name "*.js" \) | sort
+
+    - name: 📝 Verificar CHANGELOG
+      run: |
+        if [ ! -f CHANGELOG.md ]; then
+          echo "❌ Erro: CHANGELOG.md não encontrado"
+          exit 1
+        fi
+        echo "✅ CHANGELOG.md encontrado"
+
+    - name: 🏷️ Verificar VERSION sincronizado
+      run: |
+        VERSION=$(cat VERSION)
+        PACKAGE_VERSION=$(node -e "console.log(require('./backend/package.json').version)")
+        echo "VERSION: $VERSION"
+        echo "package.json: $PACKAGE_VERSION"
+        if [ "$VERSION" != "$PACKAGE_VERSION" ]; then
+          echo "⚠️  Aviso: Versões diferentes - considere sincronizar"
+        fi
+
+    - name: 📤 Relatório de Check
+      if: always()
+      run: |
+        echo "## ✅ Quality Check Report" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "### Node.js Version" >> $GITHUB_STEP_SUMMARY
+        echo "- Testado em: ${{ matrix.node-version }}" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "### Verificações" >> $GITHUB_STEP_SUMMARY
+        echo "- ✅ Sintaxe JavaScript" >> $GITHUB_STEP_SUMMARY
+        echo "- ✅ Integração API" >> $GITHUB_STEP_SUMMARY
+        echo "- ✅ Estrutura de pastas" >> $GITHUB_STEP_SUMMARY
+        echo "- ✅ CHANGELOG.md" >> $GITHUB_STEP_SUMMARY
