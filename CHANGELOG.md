@@ -7,8 +7,11 @@ e este projeto segue [Semantic Versioning](https://semver.org/lang/pt-BR/).
 
 ## [1.0.9] - 2026-03-18
 
-### Corrigido
-- Adicionar package-lock.json para cache do GitHub Actions
+### Adicionado
+- arquivo: `backend/package-lock.json` - Arquivo de lock das dependências npm para cache do GitHub Actions
+
+### Alterado
+- arquivo: `.gitignore` - Removida restrição de package-lock.json para permitir versionamento
 
 ---
 
