@@ -12,7 +12,9 @@ Este diretório contém configurações e workflows do GitHub.
 │   ├── security.yml             # 🔒 Verificações de segurança
 │   └── docs.yml                 # 📚 Verificações de documentação
 ├── GITHUB_ACTIONS.md            # 📖 Guia completo de GitHub Actions
-└── BADGES.md                    # 🎖️ Badges para README
+├── BADGES.md                    # 🎖️ Badges para README
+├── SECRETS.md                   # 🔐 Configuração de Secrets
+└── README.md                    # Este arquivo
 ```
 
 ## 🚀 Workflows Ativos
@@ -34,8 +36,15 @@ https://github.com/SrLuther/ARKLAND/actions
 
 ## 📖 Documentação
 
-- [GitHub Actions Guide](./ GITHUB_ACTIONS.md)
+- [GitHub Actions Guide](./GITHUB_ACTIONS.md)
 - [Badges & Status](./BADGES.md)
+- [Configuração de Secrets](./SECRETS.md)
+
+## 🔐 Próximas Configurações
+
+- [ ] Adicionar `TIP4SERV_API_KEY` aos Secrets (veja SECRETS.md)
+- [ ] Habilitar Branch Protection (Settings → Branches)
+- [ ] Adicionar badges ao README
 
 ## ✅ Checklist
 
@@ -43,5 +52,6 @@ https://github.com/SrLuther/ARKLAND/actions
 - [x] Frontend Tests configurado
 - [x] Security Check configurado
 - [x] Documentation Check configurado
-- [x] GitHub Secrets configurados
+- [ ] GitHub Secrets configurados (veja SECRETS.md)
 - [ ] Badges adicionados ao README
+
