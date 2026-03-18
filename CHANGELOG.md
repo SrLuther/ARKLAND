@@ -5,7 +5,67 @@ Todas as mudanças notáveis neste projeto serão documentadas neste arquivo.
 O formato é baseado em [Keep a Changelog](https://keepachangelog.com/pt-BR/) 
 e este projeto segue [Semantic Versioning](https://semver.org/lang/pt-BR/).
 
-## [1.0.0] - 2026-03-18
+## [1.0.5] - 2026-03-18
+
+### Adicionado
+- ✨ Documentação completa do sistema de testes locais
+- ✨ Documentação de quality gates e proteção automática
+- ✨ Exemplos práticos de uso do sistema de proteção
+
+---
+
+## [1.0.4] - 2026-03-18
+
+### Adicionado
+- ✨ Sistema de testes locais completo (test-local.js)
+- ✨ Pre-commit hook com validação rápida (10 testes)
+- ✨ Pre-push hook com validação completa (30 testes)
+- ✨ Scripts npm para testes: `npm run test:local` e `npm run test:local:quick`
+
+### Alterado
+- 🔧 Corrigido .env.example para remover exemplo de credenciais reais
+- 🔧 Melhorado test-local.js para compatibilidade Windows
+
+---
+
+## [1.0.3] - 2026-03-18
+
+### Corrigido
+- 🐛 Corrigido aviso de secret não configurado no GitHub Actions
+- 🐛 Removido requisito de env variable no workflow quality-check
+- 🐛 Tornada testes de API opcional com continue-on-error
+
+### Adicionado
+- 📚 Documentação de GitHub Secrets em .github/SECRETS.md
+
+---
+
+## [1.0.2] - 2026-03-18
+
+### Adicionado
+- 📚 Documentação completa do projeto
+- 📚 Arquivo STATUS.md com visão geral do projeto
+- 📚 Guias de setup e quickstart
+
+### Alterado
+- 🔧 Melhorado pre-push hook para usar shell script compatível com Windows
+
+---
+
+## [1.0.1] - 2026-03-18
+
+### Adicionado
+- ✨ Sistema de versionamento automático (release.js)
+- ✨ Pre-push hook que valida versionamento
+- ✨ Git hook setup script (npm run setup-hooks)
+- ✨ Arquivo VERSIONING.md com documentação do sistema
+- ✨ Arquivo COMMITS.md com convenções de commits
+- ✨ Enforcement de semantic versioning em cada push
+
+### Alterado
+- 🔧 VERSION file como fonte única de verdade
+
+---
 
 ### Adicionado
 - ✨ Estrutura inicial do projeto

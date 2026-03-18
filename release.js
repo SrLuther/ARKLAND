@@ -129,16 +129,26 @@ function updateChangelog(newVersion, description, releaseType) {
 ### ${capitalize(releaseType === 'major' ? 'Alterado' : releaseType === 'minor' ? 'Adicionado' : 'Corrigido')}
 - ${description}
 
----
-
 `;
 
-  const updatedChangelog = changelog.replace(
-    '# Changelog - ARKLAND Store\n\nTodas as mudanças notáveis neste projeto serão documentadas neste arquivo.',
-    `# Changelog - ARKLAND Store\n\nTodas as mudanças notáveis neste projeto serão documentadas neste arquivo.\n\n${changelogEntry}`
-  );
-
-  fs.writeFileSync(CHANGELOG_FILE, updatedChangelog, 'utf-8');
+  // Inserir LOGO após o header do arquivo (antes da primeira versão)
+  // Procura por "## [" e insere antes disso
+  const markerIndex = changelog.indexOf('## [');
+  
+  if (markerIndex === -1) {
+    // Se não houver versões anteriores, insere no final
+    const updatedChangelog = changelog + '\n' + changelogEntry + '---\n';
+    fs.writeFileSync(CHANGELOG_FILE, updatedChangelog, 'utf-8');
+  } else {
+    // Insere ANTES da primeira versão existente
+    const updatedChangelog = 
+      changelog.substring(0, markerIndex) + 
+      changelogEntry + 
+      '---\n\n' +
+      changelog.substring(markerIndex);
+    fs.writeFileSync(CHANGELOG_FILE, updatedChangelog, 'utf-8');
+  }
+  
   log(colors.green, `✅ CHANGELOG.md atualizado`);
 }
 
